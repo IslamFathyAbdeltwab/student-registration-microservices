@@ -25,6 +25,11 @@ namespace CourseService
             {
                 app.MapOpenApi();
             }
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<CourseDbContext>();
+                db.Database.Migrate();
+            }
 
             app.UseHttpsRedirection();
 

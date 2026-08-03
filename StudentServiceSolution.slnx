@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Project Path="CourseService/CourseService.csproj" Id="919036b3-09a8-4f4c-a9d1-9d5940fb59ce" />
   <Project Path="EnrollmentService/EnrollmentService.csproj" Id="aeb7ceff-7221-4862-84f5-66b81184200d" />
   <Project Path="StudentService/StudentService.csproj" />
