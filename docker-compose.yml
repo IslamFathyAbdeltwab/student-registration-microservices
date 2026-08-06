@@ -46,3 +46,14 @@ services:
       - sqlserver
       - studentservice
       - courseservice
+
+  apigateway:
+    build:
+      context: ./ApiGateway
+    container_name: apigateway
+    ports:
+      - "5000:8080"
+    depends_on:
+      - studentservice
+      - courseservice
+      - enrollmentservice
