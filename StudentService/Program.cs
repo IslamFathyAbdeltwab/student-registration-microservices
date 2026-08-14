@@ -28,7 +28,15 @@ namespace StudentService
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<StudentDbContext>();
-                db.Database.Migrate();
+                try
+                {
+                    db.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    // Another instance already created/migrated the DB — safe to ignore
+                    Console.WriteLine($"Migration skipped (likely already applied by another instance): {ex.Message}");
+                }
             }
             app.UseHttpsRedirection();
 
@@ -36,6 +44,7 @@ namespace StudentService
 
 
             app.MapControllers();
+            app.MapGet("/health", () => Results.Ok("Healthy"));
 
             app.Run();
         }
