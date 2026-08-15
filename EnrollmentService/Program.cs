@@ -1,5 +1,6 @@
 
 using EnrollmentService.Data;
+using EnrollmentService.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Polly;
 using Polly.Extensions.Http;
@@ -38,7 +39,7 @@ namespace EnrollmentService
                     .HandleTransientHttpError()
                     .CircuitBreakerAsync(5, TimeSpan.FromSeconds(30));
             }
-
+            builder.Services.AddSingleton<EventPublisher>();
             builder.Services.AddHttpClient("StudentService", client =>
             {
                 client.BaseAddress = new Uri(builder.Configuration["Services:StudentService"]!);

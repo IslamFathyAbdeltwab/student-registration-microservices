@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EnrollmentService.Data;
+﻿using EnrollmentService.Data;
+using EnrollmentService.Messaging;
 using EnrollmentService.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EnrollmentService.Controllers
 {
@@ -11,10 +12,13 @@ namespace EnrollmentService.Controllers
         private readonly EnrollmentDbContext _context;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public EnrollmentsController(EnrollmentDbContext context, IHttpClientFactory httpClientFactory)
+        private readonly EventPublisher _eventPublisher;
+
+        public EnrollmentsController(EnrollmentDbContext context, IHttpClientFactory httpClientFactory, EventPublisher eventPublisher)
         {
             _context = context;
             _httpClientFactory = httpClientFactory;
+            _eventPublisher = eventPublisher;
         }
 
         [HttpPost]
@@ -40,7 +44,7 @@ namespace EnrollmentService.Controllers
 
             _context.Enrollments.Add(enrollment);
             await _context.SaveChangesAsync();
-
+            await _eventPublisher.PublishEnrollmentCreated(enrollment);
             return Ok(enrollment);
         }
     }

@@ -5,5 +5,6 @@
   <Project Path="ApiGateway/ApiGateway.csproj" Id="244c7aae-b6e9-4c98-83eb-a07a431ca09e" />
   <Project Path="CourseService/CourseService.csproj" Id="919036b3-09a8-4f4c-a9d1-9d5940fb59ce" />
   <Project Path="EnrollmentService/EnrollmentService.csproj" Id="aeb7ceff-7221-4862-84f5-66b81184200d" />
+  <Project Path="NotificationService/NotificationService.csproj" />
   <Project Path="StudentService/StudentService.csproj" />
 </Solution>
